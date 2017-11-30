@@ -1,0 +1,13 @@
+ScalaToXml will support the following elements:
+    - XML elements
+    - XML element's attributes
+    - XML element's values
+    - XML element's elements
+    - an XML element can be empty
+    - Element names are case-sensitive
+      Element names must start with a letter or underscore
+      Element names cannot start with the letters xml (or XML, or Xml, etc)
+      Element names can contain letters, digits, hyphens, underscores, and periods
+      Element names cannot contain spaces
+    - maybe provide support for a unified naming convention - lower/upper case, underscore, pascalCase(FirstName),
+                                                               camelCase(firstName)
