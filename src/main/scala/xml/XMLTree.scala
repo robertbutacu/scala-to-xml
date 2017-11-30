@@ -7,17 +7,19 @@ case class Element(name: String,
                    value: Option[String]) extends XML {
   override def toXml: String = ???
 
-  def addAttribute(attr: Attribute): Element = ???
+  def add(attr: Attribute): Element = ???
 
-  def removeAttribute(attr: Attribute): Element = ???
+  def add(attrs: List[Attribute]): Element = ???
 
-  def addChild(child: Element): Element = ???
+  def add(child: Element): Element = ???
 
-  def removeChild(child: Element): Element = ???
+  def remove(attr: Attribute): Element = ???
 
-  def editChild(old: Element, updated: Element): Element = ???
+  def remove(child: Element): Element = ???
 
-  def editValue(newValue: Value): Element = ???
+  def edit(old: Element, updated: Element): Element = ???
+
+  def edit(newValue: Value): Element = ???
 }
 
 
