@@ -4,7 +4,7 @@ package xml
 case class Element(name: String,
                    attributes: Set[Attribute],
                    elements: Set[Element],
-                   value: Option[Value]) extends XMLRoot {
+                   value: Option[Value]) extends XMLNode {
   override def toXml(depth: Int = 0): String = {
     def elementToXml(element: Element, depth: Int): String =
       "\t" * depth + element.toXml(depth)
@@ -51,12 +51,12 @@ case class Element(name: String,
 }
 
 
-case class Attribute(name: String, value: Attribute) extends XMLLeaf {
+case class Attribute(name: String, value: Attribute) extends XMLNodeDetails {
   override def toXml: String = s" $name = \"$value\" "
 }
 
 
-case class Value(value: String) extends XMLLeaf {
+case class Value(value: String) extends XMLNodeDetails {
   override def toXml: String = s"$value"
 }
 

@@ -2,10 +2,10 @@ package xml
 
 trait XML
 
-trait XMLLeaf extends XML{
+trait XMLNodeDetails extends XML{
   def toXml: String
 }
 
-trait XMLRoot extends XML{
+trait XMLNode extends XML{
   def toXml(depth: Int): String
 }
