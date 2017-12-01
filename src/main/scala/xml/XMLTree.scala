@@ -14,9 +14,18 @@ case class Element(name: String,
     def elementToXml(element: Element, depth: Int): String =
       "\t" * depth + element.toXml(depth)
 
-    s"<$name${attributes.map(_.toXml).mkString(" ")}> ${if(elements.nonEmpty)"\n" else ""}" +
+    s"<$name${attributes.map(_.toXml).mkString(" ")}> ${if (elements.nonEmpty) "\n" else ""}" +
       s"${elements.map(elementToXml(_, depth + 1)).mkString("\n")}" +
-      s"${if(elements.nonEmpty) "\t" * depth else ""}</$name>\n"
+      s"${
+        value.map {
+          if (elements.nonEmpty) "\t" * depth + _.toXml + "\n"
+          else _.toXml
+        }.mkString
+      }" +
+      s"${
+        if (elements.nonEmpty) "\t" * depth
+        else ""
+      }</$name>\n"
   }
 
   /**
@@ -28,10 +37,11 @@ case class Element(name: String,
     Element(name, attributes + attr, elements, value)
 
   /**
-    *  used DummyImplicit because of type erasure raising an error
-    *  => Set[Element] fundamentally gets reduced to Set[Obj], same as any Set()
+    * used DummyImplicit because of type erasure raising an error
+    *
+    * => Set[Element] fundamentally gets reduced to Set[Obj], same as any Set()
     * @param attrs - new attributes to be added
-    * @param d - implicit dummy to avoid compilation error
+    * @param d     - implicit dummy to avoid compilation error
     * @return - a new element with the new attributes added
     */
   def add(attrs: Set[Attribute])(implicit d: DummyImplicit): Element =
@@ -79,9 +89,10 @@ case class Element(name: String,
 
   /**
     * used DummyImplicit because of type erasure raising an error
-    *  => Set[Element] fundamentally gets reduced to Set[Obj], same as any kind of Set[]
+    *
+    * => Set[Element] fundamentally gets reduced to Set[Obj], same as any kind of Set[]
     * @param children - set of nodes to be removed from current node
-    * @param d - to avoid compilation error caused by type erasure
+    * @param d        - to avoid compilation error caused by type erasure
     * @return - new element without the specified children
     */
   def remove(children: Set[Element])(implicit d: DummyImplicit): Element =
@@ -89,7 +100,7 @@ case class Element(name: String,
 
   /**
     *
-    * @param old - node to be updated
+    * @param old     - node to be updated
     * @param updated - updated node
     * @return - element with the old element updated
     */
@@ -98,7 +109,7 @@ case class Element(name: String,
 
   /**
     *
-    * @param old - attribute to be updated
+    * @param old     - attribute to be updated
     * @param updated - updated attribute
     * @return - element with the old attribute updated
     */
