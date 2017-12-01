@@ -14,9 +14,9 @@ case class Element(name: String,
     def elementToXml(element: Element, depth: Int): String =
       "\t" * depth + element.toXml(depth)
 
-    s"<$name${attributes.map(_.toXml).mkString(" ")}>\n" +
+    s"<$name${attributes.map(_.toXml).mkString(" ")}> ${if(elements.nonEmpty)"\n" else ""}" +
       s"${elements.map(elementToXml(_, depth + 1)).mkString("\n")}" +
-      s"${"\t" * depth}</$name>\n"
+      s"${if(elements.nonEmpty) "\t" * depth else ""}</$name>\n"
   }
 
   /**
