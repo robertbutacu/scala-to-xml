@@ -15,7 +15,7 @@ case class Element(name: String,
       "\t" * depth + element.toXml(depth)
 
     s"<$name${attributes.map(_.toXml).mkString(" ")}> ${if (elements.nonEmpty) "\n" else ""}" +
-      s"${elements.map(elementToXml(_, depth + 1)).mkString("\n")}" +
+      s"${elements.map(elementToXml(_, depth + 1)).mkString}" +
       s"${
         value.map {
           if (elements.nonEmpty) "\t" * depth + _.toXml + "\n"
