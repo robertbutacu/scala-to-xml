@@ -2,9 +2,9 @@ package xml
 
 
 case class Element(name: String,
-                   attributes: Set[Attribute],
-                   elements: Set[Element],
-                   value: Option[Value]) extends XMLNode {
+                   attributes: Set[Attribute] = Set.empty,
+                   elements: Set[Element] = Set.empty,
+                   value: Option[Value] = None) extends XMLNode {
   /**
     *
     * @param depth - serves as indentation in number of tabs
