@@ -14,9 +14,9 @@ case class Element(name: String,
     def elementToXml(element: Element, depth: Int): String =
       "\t" * depth + element.toXml(depth)
 
-    s"<$name ${attributes map(_.toXml)}>\n" +
-      s"${elements.map(elementToXml(_, depth + 1) + "\n")}" +
-      s"</$name>"
+    s"<$name${attributes.map(_.toXml).mkString(" ")}>\n" +
+      s"${elements.map(elementToXml(_, depth + 1)).mkString("\n")}" +
+      s"${"\t" * depth}</$name>\n"
   }
 
   /**
@@ -94,7 +94,7 @@ case class Element(name: String,
     * @return - element with the old element updated
     */
   def edit(old: Element, updated: Element): Element =
-    Element(name, attributes, elements(old) = updated, value)
+    Element(name, attributes, elements - old + updated, value)
 
   /**
     *
@@ -103,7 +103,7 @@ case class Element(name: String,
     * @return - element with the old attribute updated
     */
   def edit(old: Attribute, updated: Attribute): Element =
-    Element(name, attributes(old) = updated, elements, value)
+    Element(name, attributes - old + updated, elements, value)
 
   /**
     *
@@ -115,8 +115,8 @@ case class Element(name: String,
 }
 
 
-case class Attribute(name: String, value: Attribute) extends XMLNodeDetails {
-  override def toXml: String = s" $name = \"$value\" "
+case class Attribute(name: String, value: String) extends XMLNodeDetails {
+  override def toXml: String = s""" $name = "$value""""
 }
 
 
