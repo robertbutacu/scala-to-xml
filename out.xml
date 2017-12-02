@@ -1,0 +1,6 @@
+<people>
+	<person>
+		<PassionAttr weight = "15">guitar</PassionAttr>
+		<AgeAttr weight = "20">25</AgeAttr>
+	</person>
+</people>
