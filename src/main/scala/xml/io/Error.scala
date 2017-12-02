@@ -2,9 +2,9 @@ package xml.io
 
 sealed trait Error
 
-case object InvalidXMLFile extends Error
+case class InvalidXMLFile(lineErr: Int = 0) extends Error
 
-case object BadFile extends Error
+case class BadFile(err: String = "") extends Error
 
 
 

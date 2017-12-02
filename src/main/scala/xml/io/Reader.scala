@@ -12,7 +12,7 @@ object Reader {
 
     readFromFile() match {
       case Success(lines) => Left(Element("asd"))
-      case Failure(_)     => Right(BadFile)
+      case Failure(err)     => Right(BadFile(err.toString))
 
     }
   }
