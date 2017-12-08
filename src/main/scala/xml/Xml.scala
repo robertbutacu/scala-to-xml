@@ -1,11 +1,11 @@
 package xml
 
-trait XML
+abstract class XML
 
-trait XMLNodeDetails extends XML{
+abstract class XMLNodeDetails extends XML{
   def toXml: String
 }
 
-trait XMLNode extends XML{
+abstract class XMLNode extends XML{
   def toXml(depth: Int): String
 }
